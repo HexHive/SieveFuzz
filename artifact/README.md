@@ -13,7 +13,7 @@ This folder holds all the instructions pertaining to reproducing the results in 
 ```
 docker pull prashast94/sievefuzz:artifact
 ```
-- Download the raw campaign results (`results_raw` folder) from the google drive folder listed here.
+- Download the raw campaign results (`results_raw` folder) from the google drive folder listed [here](https://drive.google.com/drive/folders/1ZnHr28Quk7OiGv8c-o63aecr0KS-GOUh).
 
 - After downloading the folder, in its parent directory run the image with the option to mount the folder containing the results into the docker image using the below command
 ```
