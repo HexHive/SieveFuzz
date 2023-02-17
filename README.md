@@ -2,8 +2,10 @@
 
 Code repository for the ACSAC '22 paper: One Fuzz Doesn’t Fit All: Optimizing
 Directed Fuzzing via Target-tailored Program State Restriction.
+
 The instructions pertaining to the artifact used for the experiments presented
 in our paper are present in `artifact/`.
+
 We present below the instructions to pull a docker image with a standalone
 release as well as instructions on how to run it on a sample target.
 
