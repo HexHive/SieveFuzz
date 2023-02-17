@@ -66,9 +66,9 @@ instrumentation and also run the fuzzer with the static analysis module
       ensure that unique ID's are assigned to each function
 
 - Add a key-value pair in `locs` present in `prep_target.sh`. This key value pair should be listed as follows:
-```
-locs["newtarget"]="path/to/bin"
-```
+    ```
+    locs["newtarget"]="path/to/bin"
+    ```
     - The path is the relative path where the final binary is placed by the built script. The use of this script is to automate the bitcode extraction process
 
 - Run the following set of commands to create the bitcode file and the sievefuzz-instrumented file
@@ -141,20 +141,19 @@ python3 create_fuzz_script.py -c sanitycheck.config -n 15 --get --dry
 ```
 
 - As an example, the output of the above command for the sanitycheck configuration would be
-```
-:~/sievefuzz/eval# python3 create_fuzz_script.py -c sanitycheck.config -n 15 --get --dry
-=================
-[X] Getting job:
+    ```
+    :~/sievefuzz/eval# python3 create_fuzz_script.py -c sanitycheck.config -n 15 --get --dry 
+    =================
+    [X] Getting job:
 
-screen -d -m timeout 340 /root/sievefuzz/third_party/SVF/Release-build/bin/svf-ex -p=6200 --tag=/root/sievefuzz/results/tidy/sievefuzz/output_000/000 -f=prvTidyInsertedToken --get-indirect --activation=/root/sievefuzz/benchmarks/out_tidy/sievefuzz/fn_indices.txt --stat=false --run-server --dump-stats /root/sievefuzz/benchmarks/out_tidy/BITCODE/tidy.bc
-[X] Getting job:
+    screen -d -m timeout 340 /root/sievefuzz/third_party/SVF/Release-build/bin/svf-ex -p=6200 --tag=/root/sievefuzz/results/tidy/sievefuzz/output_000/000 -f=prvTidyInsertedToken --get-indirect --activation=/root/sievefuzz/benchmarks/out_tidy/sievefuzz/fn_indices.txt --stat=false --run-server --dump-stats /root/sievefuzz/benchmarks/out_tidy/BITCODE/tidy.bc
+    [X] Getting job:
 
-screen -d -m timeout 300 /root/sievefuzz/third_party/sievefuzz/afl-fuzz -m none -P 6200  -i /root/sievefuzz/eval/data/seeds/simple-o /root/sievefuzz/results/tidy/sievefuzz/output_000 -- /root/sievefuzz/benchmarks/out_tidy/sievefuzz/tidy
-=================
-[X] No jobs left in queue
-```
-
-    - The `screen -d -m timeout <timeout` are utilities that can be stripped off safely from the raw command. The first command corresponds to setting up the static analysis server and the second command corresponds to deploying sievefuzz
+    screen -d -m timeout 300 /root/sievefuzz/third_party/sievefuzz/afl-fuzz -m none -P 6200  -i /root/sievefuzz/eval/data/seeds/simple-o /root/sievefuzz  /results/tidy/sievefuzz/output_000 -- /root/sievefuzz/benchmarks/out_tidy/sievefuzz/tidy
+    =================
+    [X] No jobs left in queue
+    ```
+    - The `screen -d -m timeout <timeout>` are utilities that can be stripped off safely from the raw command. The first command corresponds to setting up the static analysis server and the second command corresponds to deploying sievefuzz
 
 
 # Installing SieveFuzz from scratch
