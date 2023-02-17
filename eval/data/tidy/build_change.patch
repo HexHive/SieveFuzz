@@ -1,0 +1,6 @@
+93,94c93,94
+< CC= gcc
+< CFLAGS= -g -pedantic -Wall -I $(INCDIR)
+---
+> CC ?= gcc
+> CFLAGS += -g -pedantic -Wall -I $(INCDIR)
