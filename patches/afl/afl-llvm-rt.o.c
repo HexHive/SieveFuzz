@@ -561,7 +561,7 @@ void __afl_manual_init(void) {
 }
 
 
-//======== Areafuzz-specific functionality ===============
+//======== SieveFuzz-specific functionality ===============
 //
 #ifdef AF
 
@@ -579,7 +579,7 @@ int get_bit(u32 n) {
 }
 
 
-// Areafuzz-specific modifications
+// SieveFuzz-specific modifications
 // void __sanitizer_cov_function_entry_init(u8* initfile) { 
 // 
 //   // FILE *fp;

@@ -47,7 +47,6 @@ void dump_num(std::string, std::size_t, std::size_t);
 std::string demangleString(const char* name);
 
 /*Fencing prototypes*/
-std::set<std::string> traverseBackwardsInsensitive(ICFG*, const Instruction*);
 std::set<std::string> traverseBackwardsFlowInsensitive(ICFG*, const Instruction*, PTACallGraph*);
 void traverseBackwardsFlowSensitive(ICFG*, const Instruction*, PTACallGraph*, std::set<std::string>&, std::set<uint64_t>&, std::set<std::string>&);
 std::set<std::string> traverseCallGraph(PTACallGraph*, PTACallGraphNode*);

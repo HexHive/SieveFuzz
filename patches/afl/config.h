@@ -414,7 +414,7 @@
   
   char port[20];  
 
-  // Switch that specifies if AreaFuzz calibration is being done
+  // Switch that specifies if SieveFuzz calibration is being done
   int af_calibrate;
 
   struct calledge_arr {

@@ -3,37 +3,6 @@ using namespace llvm;
 using namespace std;
 using namespace SVF;
 
-std::set<std::string> traverseBackwardsInsensitive(ICFG* icfg, const Instruction* inst) {
-	ICFGNode* iNode = icfg->getBlockICFGNode(inst);
-	FIFOWorkList<const ICFGNode*> worklist;
-	std::set<const ICFGNode*> visited;
-    std::set<std::string> visited_functions; // Holds the whitelist of functions
-	worklist.push(iNode);
-
-	/// Traverse along ICFG 
-	while (!worklist.empty()) {
-		const ICFGNode* vNode = worklist.pop();
-		for (ICFGNode::const_iterator it = vNode->InEdgeBegin(), eit =
-				vNode->InEdgeEnd(); it != eit; ++it) {
-			ICFGEdge* edge = *it;
-			ICFGNode* succNode = edge->getSrcNode();
-			if (visited.find(succNode) == visited.end()) {
-                std::cout << "Visited:" << succNode->getId() << "\n";
-		        visited.insert(succNode);
-				worklist.push(succNode);
-                // Find the unvisited function name
-                const SVFFunction* succFun = succNode->getFun();
-                const Function* candidate = succFun->getLLVMFun();
-                std::cout << candidate->getName().str() << " ";
-                visited_functions.insert(candidate->getName().str());
-			}
-            else {
-                std::cout << "Already visited:" << succNode->getId() ;
-            }
-		}
-	}
-    return visited_functions;
-}
 
 void traverseBackwardsFlowSensitive(
         ICFG* icfg, 

@@ -53,7 +53,7 @@ static llvm::cl::opt<bool> dumpStats("dump-stats", llvm::cl::init(false), llvm::
 // Switch to perform reachability analysis on call graph to identify all reachable functions from entry point
 static llvm::cl::opt<bool> GetReachable("get-reachable", llvm::cl::init(false), llvm::cl::desc("Perform reachability analysis on call graph")); 
 
-// Switch to find viable functions to target with AreaFuzz
+// Switch to find viable functions to target with SieveFuzz
 static llvm::cl::opt<bool> GetFeasible("get-feasible", llvm::cl::init(false), llvm::cl::desc("Perform feasibility analysis on fuzz target")); 
 
 // Switch to perform reachability analysis on call graph to identify all reachable functions from entry point
@@ -602,7 +602,7 @@ int main(int argc, char ** argv) {
                          }
                          // PTACallGraphEdge* calledge = callgraph->getGraphEdge(caller_node, callee_node, PTACallGraphEdge::CallRetEdge, NULL); 
                          if (! calledge) { 
-                             spdlog::critical("No edge exists between {} and {}", caller_str, callee_str);
+                             spdlog::debug("No edge exists between {} and {}", caller_str, callee_str);
 			     spdlog::debug("Adding destination edge to allowlist"); 
 			     allowlist.insert(callee_str);
 			     continue;
@@ -772,7 +772,7 @@ int main(int argc, char ** argv) {
                          }
                          // PTACallGraphEdge* calledge = callgraph->getGraphEdge(caller_node, callee_node, PTACallGraphEdge::CallRetEdge, NULL); 
                          if (! calledge) { 
-                             spdlog::critical("No edge exists between {} and {}", caller_str, callee_str);
+                             spdlog::debug("No edge exists between {} and {}", caller_str, callee_str);
                              //XXX: Might need to deal with this later.
                              continue;
                          }
@@ -861,49 +861,6 @@ int main(int argc, char ** argv) {
       } // End of event loop
         return 0;
     }
-
-
-    // Traverse backwards
-    // auto functions = traverseBackwardsInsensitive(icfg, inst);
-    // auto functions = traverseBackwards(icfg, inst, allowlist);
-    // auto functions = traverseCallGraph(callgraph, target_node);
-    //
-    // std::set<uint64_t> allowed_indirect;
-    // auto allowlist = traverseBackwardsFlowSensitive(icfg, inst, callgraph, allowed_indirect);
-
-    // // Recursively Get all callsites for the target function and add them to the allowlist
-    // // PTACallGraphEdge::CallInstSet csSet;
-    // // callgraph->getAllCallSitesInvokingCallee(target_svf, csSet);
-    // // // Iterate through the callsites and print their addr
-    // // std::set<std::string> allowlist; // Holds the whitelist of allowed callsites 
-    // // for (auto it = csSet.begin(); it != csSet.end(); ++it) {
-    // //     std::string str;
-    // //     raw_string_ostream rawstr(str);
-    // //     rawstr << (*it)->getCallSite().getInstruction();
-    // //     allowlist.insert(rawstr.str());
-    // //     // std::cout << rawstr.str();
-    // // }
-    // for (PTACallGraphEdge::CallGraphEdgeSet::iterator it = target_node->OutEdgeBegin();
-    //        it != target_node->OutEdgeEnd(); ++it) {
-    //    PTACallGraphEdge* edge = (*it); 
-	//    PTACallGraphNode* dstNode = edge->getDstNode();
-
-    //    // Get function name
-    //    const SVFFunction* dstFun = dstNode->getFunction();
-    //    const Function* candidate = dstFun->getLLVMFun();
-
-    //    allowlist.insert(candidate->getName().str());
-    // }
-
-    // 
-    // ofstream myfile (OutputFile);
-    // if (! myfile.is_open()) {
-    //     std::cout << "Could not open output file exiting";
-    //     exit(1);
-    // }
-    // for (auto it=allowlist.begin(); it != allowlist.end(); ++it) 
-    //     myfile << *it << "\n";
-    // myfile.close();
 
     return 0;
 }
