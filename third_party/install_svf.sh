@@ -36,24 +36,3 @@ if [ ! -d SVF ]; then
 else
 	cd SVF && source ./setup.sh && cd -
 fi
-
-# Get gllvm
-which go
-if [ $? -eq 0 ]; then
-	echo "Go already present, not downloading"
-else
-	if [ ! -f go1.14.4.linux-amd64.tar.gz ]; then
-		wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
-	fi
-
-    if [ "$EUID" -ne 0 ]; then
-	    sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
-    else
-	    tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
-    fi
-    
-	addToPATH /usr/local/go/bin
-	export GOPATH=$PWD
-	go get github.com/SRI-CSL/gllvm/cmd/...
-	addToPATH $GOPATH/bin
-fi

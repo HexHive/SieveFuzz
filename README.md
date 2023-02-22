@@ -16,7 +16,6 @@ release as well as instructions on how to run it on a sample target.
 docker pull prashast94/sievefuzz:standalone
 docker run --it prashast94/sievefuzz:standalone /bin/bash
 ```
-
 - Setup the test target with SieveFuzz instrumentation and also prepare its
 bitcode file which is used to aid the static analysis module
 ```
@@ -165,9 +164,25 @@ the below set of instructions:
 
 - Clone repo and change its name from `SieveFuzz` to `sievefuzz`
 - Install dependencies from `apt` and `pip` as specified in the `docker/Dockerfile`
+- If you are running inside a VM or your own workstation and have not setup the runtime environment for AFL++, please run the below script with `sudo` privileges. It will rename the core file to be generated with the name `core` and changes the CPU scaling governor (if it exists) to `performance`
+    ```
+    cd eval/
+    sudo ./setup_fuzzer_env.sh
+    ```
+    - If the script ran succesfully it should output the following message at the end.
+    ```
+    [X] Runtime environment for fuzzers setup successfully
+    ```
 - Setup clang-9 as the default clang using `update-alternatives`
 - Run `build.sh`
-- Copy over binaries inside `gllvm_bins` to `$HOME/sievefuzz/third_party/SVF/Release-build/bin/`
+    - NOTE: While building SVF, there may be certain failed tests. This is
+      expected behavior since these failing tests were inherited from the base
+      commit of SVF on top of which SieveFuzz builds.  The functionality of our
+      static analysis module was not observed to be affected by these failing
+      regression tests hence they can be safely ignored.
+- Copy over binaries inside `gllvm_bins` to
+  `$HOME/sievefuzz/third_party/SVF/Release-build/bin/`. These are binaries used
+  to extract whole-program bitcode using `gllvm`.
 - Before compiling targets with sievefuzz instrumentation update `ROOT` inside `prep_target.sh` to point to the top-level directory where `sievefuzz` repo was cloned.
 - Update `TARGET_DIR`, `OUTDIR`, `DATA` from `/root` to point to the top-level dir where sievefuzz is cloned.
     - The above path modification can be done for `get_sample_target.sh` and `sanitycheck_run.sh` as well
