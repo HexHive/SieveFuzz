@@ -156,6 +156,11 @@ If you would like to run all the fuzzing campaigns from scratch using the
 configuration described in the paper, the following instructions can be
 followed: 
 
+In case beanstalk server is not already setup as specified previously in the sanity-check section, please do
+so by running the following command:
+```
+beanstalkd &
+```
 ## Comparative evaluation against AFL++ and AFLGo (Estimated time: 280 CPU days) 
 
 - Run the fuzzing campaigns for all targets corresponding to the experimental
