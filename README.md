@@ -14,12 +14,12 @@ release as well as instructions on how to run it on a sample target.
 - Pull the docker image and spawn a shell inside it
 ```
 docker pull prashast94/sievefuzz:standalone
-docker run --it prashast94/sievefuzz:standalone /bin/bash
+docker run -it prashast94/sievefuzz:standalone /bin/bash
 ```
 - Setup the test target with SieveFuzz instrumentation and also prepare its
 bitcode file which is used to aid the static analysis module
 ```
-cd /root/SieveFuzz/eval
+cd /root/sievefuzz/eval
 # Get the target source code
 ./get_sample_target.sh
 # Create the bitcode file
@@ -74,7 +74,7 @@ instrumentation and also run the fuzzer with the static analysis module
 
 - Run the following set of commands to create the bitcode file and the sievefuzz-instrumented file
 ```
-cd /root/SieveFuzz/eval
+cd /root/sievefuzz/eval
 # Create the bitcode file
 ./prep_target.sh newtarget bitcode 
 # Create the SieveFuzz variant
